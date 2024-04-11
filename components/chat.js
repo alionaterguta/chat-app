@@ -8,42 +8,22 @@ import {
   collection,
   addDoc,
 } from "firebase/firestore";
+import CustomActions from "./CustomActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MapView from "react-native-maps";
 
 // Destructure name and background from route.params
-const Chat = ({ db, route, navigation, isConnected }) => {
+const Chat = ({ db, route, navigation, isConnected, storage }) => {
   const { userID } = route.params;
   const { name, background } = route.params;
   const [messages, setMessages] = useState([]);
-  const onSend = (newMessages) => {
-    addDoc(collection(db, "messages"), newMessages[0]);
-  };
-
-  const renderBubble = (props) => {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: "#484848",
-          },
-          left: {
-            backgroundColor: "#fff",
-          },
-        }}
-      />
-    );
-  };
-
-  const renderInputToolbar = (props) => {
-    if (isConnected) return <InputToolbar {...props} />;
-    else return null;
-  };
 
   let unsubMessages;
   // useEffect hook to set messages options
   // Create a query to get the "messages" collection from the Firestore database
   useEffect(() => {
+    navigation.setOptions({ title: name });
+
     if (isConnected === true) {
       // unregister current onSnapshot() listener to avoid registering multiple listeners when
       // useEffect code is re-executed.
@@ -90,10 +70,59 @@ const Chat = ({ db, route, navigation, isConnected }) => {
     setMessages(JSON.parse(cachedMessages));
   };
 
-  // useEffect hook to set navigation options
-  useEffect(() => {
-    navigation.setOptions({ title: name });
-  }, []);
+  const onSend = (newMessages) => {
+    addDoc(collection(db, "messages"), newMessages[0]);
+  };
+
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: "#484848",
+          },
+          left: {
+            backgroundColor: "#fff",
+          },
+        }}
+      />
+    );
+  };
+
+  const renderInputToolbar = (props) => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
+  };
+
+  const renderCustomActions = (props) => {
+    return (
+      <CustomActions
+        onSend={onSend}
+        storage={storage}
+        userID={userID}
+        {...props}
+      />
+    );
+  };
+
+  const renderCustomView = (props) => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  };
 
   /* Render a View component with dynamic background color */
   return (
@@ -102,6 +131,8 @@ const Chat = ({ db, route, navigation, isConnected }) => {
         messages={messages}
         renderBubble={renderBubble}
         renderInputToolbar={renderInputToolbar}
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
         onSend={(messages) => onSend(messages)}
         user={{
           _id: userID,
@@ -110,9 +141,6 @@ const Chat = ({ db, route, navigation, isConnected }) => {
       />
       {Platform.OS === "android" ? (
         <KeyboardAvoidingView behavior="height" />
-      ) : null}
-      {Platform.OS === "ios" ? (
-        <KeyboardAvoidingView behavior="padding" />
       ) : null}
     </View>
   );
