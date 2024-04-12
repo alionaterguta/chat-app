@@ -56,10 +56,6 @@ const Start = ({ navigation }) => {
           <View style={styles.colorButtonsContainer}>
             {/* Render a TouchableOpacity for each color option */}
             <TouchableOpacity
-              accessible={true}
-              accessibilityLabel="More options"
-              accessibilityHint="Lets you choose to send an image or your geolocation."
-              accessibilityRole="button"
               style={[
                 styles.chooseColor,
                 { backgroundColor: "#090C08" },
@@ -107,7 +103,6 @@ const Start = ({ navigation }) => {
   );
 };
 
-// Define styles for the component
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
@@ -145,7 +140,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "84%",
-    // height: "18%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#757083",

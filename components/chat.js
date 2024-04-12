@@ -14,8 +14,7 @@ import MapView from "react-native-maps";
 
 // Destructure name and background from route.params
 const Chat = ({ db, route, navigation, isConnected, storage }) => {
-  const { userID } = route.params;
-  const { name, background } = route.params;
+  const { name, background, userID } = route.params;
   const [messages, setMessages] = useState([]);
 
   let unsubMessages;
@@ -71,6 +70,7 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
   };
 
   const onSend = (newMessages) => {
+    console.log("new Messages", newMessages);
     addDoc(collection(db, "messages"), newMessages[0]);
   };
 

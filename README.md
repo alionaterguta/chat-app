@@ -12,7 +12,7 @@ A mobile chat application built with React Native. The app will provide users wi
 
 - Choose a photo from library and share
 
-- customize Theme
+- Customize Theme
 
 ### Getting Started
 

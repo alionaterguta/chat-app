@@ -4,13 +4,13 @@ import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const CustomActions = (
+const CustomActions = ({
   wrapperStyle,
   iconTextStyle,
   onSend,
   storage,
-  userID
-) => {
+  userID,
+}) => {
   // Return a reference to Gifted Chat’s ActionSheet
   const actionSheet = useActionSheet();
 
@@ -56,6 +56,7 @@ const CustomActions = (
     const blob = await response.blob();
     uploadBytes(newUploadRef, blob).then(async (snapshot) => {
       const imageURL = await getDownloadURL(snapshot.ref);
+      console.log("imageURL", imageURL);
       onSend({ image: imageURL });
     });
   };
@@ -93,7 +94,14 @@ const CustomActions = (
 
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={onActionPress}>
+      <TouchableOpacity
+        accessible={true}
+        accessibilityLabel="More options"
+        accessibilityHint="Lets you choose to send an image or your geolocation."
+        accessibilityRole="button"
+        style={styles.container}
+        onPress={onActionPress}
+      >
         <View style={[styles.wrapper, wrapperStyle]}>
           <Text style={[styles.iconText, iconTextStyle]}>+</Text>
         </View>

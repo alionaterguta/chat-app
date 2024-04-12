@@ -1,5 +1,5 @@
-import Start from "./components/start";
-import Chat from "./components/chat";
+import Chat from "./components/Chat";
+import Start from "./components/Start";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -37,12 +37,12 @@ const App = () => {
 
   // The web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyBbGBqyhFhukNqlRwDvuzK0D7ySSIp8T-Q",
-    authDomain: "chatapp-aaafb.firebaseapp.com",
-    projectId: "chatapp-aaafb",
-    storageBucket: "chatapp-aaafb.appspot.com",
-    messagingSenderId: "1050968563314",
-    appId: "1:1050968563314:web:10b701bfbf8cf8a9e16ceb",
+    apiKey: process.env.EXPO_PUBLIC_API_KEY,
+    authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.EXPO_PUBLIC_APP_ID,
   };
 
   // Initialize Firebase
