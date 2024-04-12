@@ -6,13 +6,13 @@ A mobile chat application built with React Native. The app will provide users wi
 
 - Send and receive messages in real-time
 
-- Share Location
+- Share location
 
 - Take a photo and share
 
 - Choose a photo from library and share
 
-- Customize Theme
+- Customize theme
 
 ### Getting Started
 
@@ -46,7 +46,7 @@ Node.js: Download and install Node.js. For this you can use the nvm tool https:/
     nvm use 16.19.0
     nvm alias default 16.19.0
 
-Navigate to the chat-app directory and install all depenndencies:
+Navigate to the chat-app directory and install all dependencies:
 
     npm install
 
