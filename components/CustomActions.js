@@ -43,16 +43,18 @@ const CustomActions = ({
     );
   };
 
+  // Function to generate a unique reference for an image based on user ID, current timestamp, and image name
   const generateReference = (uri) => {
     const timeStamp = new Date().getTime();
     const imageName = uri.split("/")[uri.split("/").length - 1];
     return `${userID}-${timeStamp}-${imageName}`;
   };
-
+  // Function to upload an image to Firebase Storage and send its URL
   const uploadAndSendImage = async (imageURI) => {
     const uniqueRefString = generateReference(imageURI);
     const newUploadRef = ref(storage, uniqueRefString);
     const response = await fetch(imageURI);
+    // Convert the image data into a Blob
     const blob = await response.blob();
     uploadBytes(newUploadRef, blob).then(async (snapshot) => {
       const imageURL = await getDownloadURL(snapshot.ref);
@@ -61,6 +63,7 @@ const CustomActions = ({
     });
   };
 
+  // Function to pick an image from the device's media library
   const pickImage = async () => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissions?.granted) {
@@ -69,6 +72,7 @@ const CustomActions = ({
     } else Alert.alert("Permissions haven't been granted.");
   };
 
+  // Function to take a photo using the device's camera
   const takePhoto = async () => {
     let permissions = await ImagePicker.requestCameraPermissionsAsync();
     if (permissions?.granted) {
@@ -77,6 +81,7 @@ const CustomActions = ({
     } else Alert.alert("Permissions haven't been granted.");
   };
 
+  // Function to get the current device location
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
     if (permissions?.granted) {

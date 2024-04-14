@@ -17,9 +17,16 @@ A mobile chat application built with React Native. The app will provide users wi
 ### Getting Started
 
 - **Technologies**
+
   - React Native
   - Expo and Expo Go App
   - Google Firestore Database
+
+- **Libraries**
+  - Gifted Chat library
+  - Expo ImagePicker
+  - Expo MediaLibrary
+  - Expo Location
 
 To run this app locally, you'll need to follow these steps:
 
@@ -49,6 +56,37 @@ Node.js: Download and install Node.js. For this you can use the nvm tool https:/
 Navigate to the chat-app directory and install all dependencies:
 
     npm install
+
+## Setting the Firestore Database
+
+- Sign up into Google Firebase
+
+- Click on Firestore Database and create or add new project.
+
+      npm install firebase@9.13.0 --save
+
+- Settings > Project Settings > General tab > Your Apps > Firestore for Web and generate project configurations
+
+- Change Rules:
+
+        allow read, write: if false;
+
+        allow read, write: if true;
+
+- In App.js file copy firebaseConfig variable:
+
+      const firebaseConfig = {
+      apiKey: "your-api-key",
+      authDomain: "your-authdomain",
+      projectId: "your-project-id",
+      storageBucket: "your-storage-bucket",
+      messagingSenderId: "your-messaging-sender-id",
+      appId: "your-app-id",
+       };
+
+  - Initialize Firebase
+
+        const app = initializeApp(firebaseConfig);
 
 ## Start the App
 

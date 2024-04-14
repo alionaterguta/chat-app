@@ -12,7 +12,7 @@ import CustomActions from "./CustomActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapView from "react-native-maps";
 
-// Destructure name and background from route.params
+// Destructure name, background and UserId from route.params
 const Chat = ({ db, route, navigation, isConnected, storage }) => {
   const { name, background, userID } = route.params;
   const [messages, setMessages] = useState([]);
@@ -146,7 +146,6 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
   );
 };
 
-// Define styles for the component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
