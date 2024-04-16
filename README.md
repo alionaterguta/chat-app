@@ -35,7 +35,7 @@ To run this app locally, you'll need to follow these steps:
 
   - Install Expo and Expo CLI, as this is the platform you’ll use to build your app;
 
-    npm install -g expo-cli
+        npm install -g expo-cli
 
   - Install Expo Go app on your mobile device, so that you can test your app on your own mobile device;
 
