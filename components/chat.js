@@ -70,7 +70,6 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
   };
 
   const onSend = (newMessages) => {
-    console.log("new Messages", newMessages);
     addDoc(collection(db, "messages"), newMessages[0]);
   };
 

@@ -61,37 +61,87 @@ Navigate to the chat-app directory and install all dependencies:
 
 - Sign up into Google Firebase
 
-- Click on Firestore Database and create or add new project.
+- On the main page, you will see the option to "Create a project" or "Add new project" if this is not your first project.
 
-      npm install firebase@9.13.0 --save
+  - Give your project a name, for example, "chat-app."
+  - Enable or disable Google Analytics for this project. (For this project, I disabled Analytics)
 
-- Settings > Project Settings > General tab > Your Apps > Firestore for Web and generate project configurations
+1. **You will need first to create a Database to store the messages for your chat app**.
 
-- Change Rules:
+- Head to the menu on the left-hand side of the page and click on Build than on Firestore Database and Create Database
+
+      Build > Firestore Database > Create Database Button
+
+- A modal will appear, prompting you to select the location for storing Cloud Firestore data.
+
+      Database ID is set to Default
+
+      From the dropdown menu, select the location where your Users are located.
+
+- For this project, I selected **Start in production mode**, click Next.
+
+- Under Data Tab click on **Start Collection** and give the name, for example, "messages"
+- Next for the **Document Id** click on **Auto ID** to auto-generate a document ID. Click **Save** . The new messages will be now saved in this collection and the **Fields** are defined in code > Chat.js
+
+- Click the Rules tab on the Firestore dashboard. With its default configuration, the database doesn’t allow read-and-write queries from a mobile or web app to be performed. We need to change this piece of code. Change false to true in the following line:
+
+      allow read, write: if false;
+
+  to:
+
+       allow read, write: if true;
+
+- Click **Publish**
+
+- Next, navigate to Project Settings. On the left-hand side of the page, under the General tab, find the Your Apps option. Choose a platform to start your app. For this project, I selected Web.
+
+         Project Settings > General Tab > Your Apps > Web ( </> ).
+
+- Give your App a nickname and click **Register**.
+
+- Here you will find your web app's Firebase configuration and you need to copy them in App.js:
+
+      const firebaseConfig = {
+        apiKey: "your-api-key",
+        authDomain: "your-authdomain",
+        projectId: "your-project-id",
+        storageBucket: "your-storage-bucket",
+        messagingSenderId: "your-messaging-sender-id",
+        appId: "your-app-id",
+        };
+
+2.  **Implement an authentication process into your app**
+
+- Head to your Firestore dashbord and under Build click Authentication and Get Started button. By default, you should be taken to the Sign-in method tab.
+
+      Build > Authentication > Get Started button > Sign-in method tab
+
+- From the wide range of authentication methods provided by Firestore Google, I opted for the Anonymous option, which suffices for this project.
+
+  - Enable Anonymous and click **Save** . With anonymous authentication, you receive a user object with an ID in it, which you can then store in your database for that particular user. The authentication code resides in Start.js component.
+
+3. **To be able to store and send images or videos in your native chat app, you’ll need to set up Firebase Storage**
+
+- Head to your Firestore dashbord and under Build click Storage and Get Started button. A popup will open that asks you to set your cloud storage. Keep everything on default and press **Next**, then **Done**
+
+- You need to allow uploading and downloading files to and from the storage, from whichever device connects to your Firebase Storage.
+
+- Go to the Rules tab, change false to true in the following line:
 
         allow read, write: if false;
 
-        allow read, write: if true;
+  to:
 
-- In App.js file copy firebaseConfig variable:
+         allow read, write: if true;
 
-      const firebaseConfig = {
-      apiKey: "your-api-key",
-      authDomain: "your-authdomain",
-      projectId: "your-project-id",
-      storageBucket: "your-storage-bucket",
-      messagingSenderId: "your-messaging-sender-id",
-      appId: "your-app-id",
-       };
+- Click **Publish**
 
-  - Initialize Firebase
+- You don’t need to configure anything else because everything you need to work with Firebase Cloud Storage is already built into the Firestore library.
 
-        const app = initializeApp(firebaseConfig);
-
-## Start the App
-
-- Use the Expo Go App on your mobile device to check the UI
+## After seting up the Firestore Database you can now start the App.
 
 - Initialize the app in your terminal:
 
       npx expo start
+
+- Use the Expo Go App on your mobile device to check the UI
