@@ -93,7 +93,7 @@ Navigate to the chat-app directory and install all dependencies:
 
 - Click **Publish**
 
-- Next, navigate to Project Settings. On the left-hand side of the page, under the General tab, find the Your Apps option. Choose a platform to start your app. For this project, I selected Web.
+- Next, navigate to Project Setting on the left-hand side of the page. Under the General tab, find the Your Apps option. Choose a platform to start your app. For this project, I selected Web.
 
          Project Settings > General Tab > Your Apps > Web ( </> ).
 
